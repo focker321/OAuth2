@@ -22,24 +22,22 @@
 import Base
 #endif
 
-
 /**
-LinkedIn-specific subclass to deal with LinkedIn peculiarities:
+ LinkedIn-specific subclass to deal with LinkedIn peculiarities:
 
-- Must have client-id/secret in request body
-- Must use custom web view in order to be able to intercept http(s) redirects
-- Will **not** return the "token_type" value, so must ignore it not being present
-*/
+ - Must have client-id/secret in request body
+ - Must use custom web view in order to be able to intercept http(s) redirects
+ - Will **not** return the "token_type" value, so must ignore it not being present
+ */
 public class OAuth2CodeGrantLinkedIn: OAuth2CodeGrant {
-    
-	override public init(settings: OAuth2JSON) {
-		super.init(settings: settings)
-		clientConfig.secretInBody = true
-		authConfig.authorizeEmbedded = true     // necessary because only http(s) redirects are allowed
-		authConfig.ui.useSafariView = false     // must use custom web view in order to be able to intercept http(s) redirects
-	}
-	
-	override open func assureCorrectBearerType(_ params: OAuth2JSON) throws {
-	}
-}
 
+    override public init(settings: OAuth2JSON) {
+        super.init(settings: settings)
+        clientConfig.secretInBody = true
+        authConfig.authorizeEmbedded = true     // necessary because only http(s) redirects are allowed
+        authConfig.ui.useSafariView = false     // must use custom web view in order to be able to intercept http(s) redirects
+    }
+
+    override open func assureCorrectBearerType(_ params: OAuth2JSON) throws {
+    }
+}

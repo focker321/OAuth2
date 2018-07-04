@@ -23,41 +23,38 @@ import Foundation
 import Base
 #endif
 
-
 /**
-Class to handle OAuth2 requests for public clients, such as distributed Mac/iOS Apps.
-*/
+ Class to handle OAuth2 requests for public clients, such as distributed Mac/iOS Apps.
+ */
 open class OAuth2ImplicitGrant: OAuth2 {
-	
-	override open class var grantType: String {
-		return "implicit"
-	}
-	
-	override open class var responseType: String? {
-		return "token"
-	}
-	
-	override open func handleRedirectURL(_ redirect: URL) {
-		logger?.debug("OAuth2", msg: "Handling redirect URL \(redirect.description)")
-		do {
-			// token should be in the URL fragment
-			let comp = URLComponents(url: redirect, resolvingAgainstBaseURL: true)
-			guard let fragment = comp?.percentEncodedFragment, fragment.count > 0 else {
-				throw OAuth2Error.invalidRedirectURL(redirect.description)
-			}
-			
-			let params = type(of: self).params(fromQuery: fragment)
-			let dict = try parseAccessTokenResponse(params: params)
-			logger?.debug("OAuth2", msg: "Successfully extracted access token")
-			didAuthorize(withParameters: dict)
-		}
-		catch let error {
-			didFail(with: error.asOAuth2Error)
-		}
-	}
-	
-	override open func assureAccessTokenParamsAreValid(_ params: OAuth2JSON) throws {
-		try assureMatchesState(params)
-	}
-}
 
+    override open class var grantType: String {
+        return "implicit"
+    }
+
+    override open class var responseType: String? {
+        return "token"
+    }
+
+    override open func handleRedirectURL(_ redirect: URL) {
+        logger?.debug("OAuth2", msg: "Handling redirect URL \(redirect.description)")
+        do {
+            // token should be in the URL fragment
+            let comp = URLComponents(url: redirect, resolvingAgainstBaseURL: true)
+            guard let fragment = comp?.percentEncodedFragment, fragment.count > 0 else {
+                throw OAuth2Error.invalidRedirectURL(redirect.description)
+            }
+
+            let params = type(of: self).params(fromQuery: fragment)
+            let dict = try parseAccessTokenResponse(params: params)
+            logger?.debug("OAuth2", msg: "Successfully extracted access token")
+            didAuthorize(withParameters: dict)
+        } catch let error {
+            didFail(with: error.asOAuth2Error)
+        }
+    }
+
+    override open func assureAccessTokenParamsAreValid(_ params: OAuth2JSON) throws {
+        try assureMatchesState(params)
+    }
+}

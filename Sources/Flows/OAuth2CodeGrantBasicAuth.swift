@@ -23,44 +23,41 @@ import Foundation
 import Base
 #endif
 
-
 /**
-Enhancing the code grant flow by allowing to specify a specific "Basic xx" authorization header.
+ Enhancing the code grant flow by allowing to specify a specific "Basic xx" authorization header.
 
-This class allows you to manually set the "Authorization" header to a given string, as accepted in its `basicToken` property. It will
-override the superclasses automatic generation of an Authorization header if the client has a clientSecret, so you only need to use
-this subclass if you need a different header (this is different to version 1.2.3 and earlier of this framework).
-*/
+ This class allows you to manually set the "Authorization" header to a given string, as accepted in its `basicToken` property. It will
+ override the superclasses automatic generation of an Authorization header if the client has a clientSecret, so you only need to use
+ this subclass if you need a different header (this is different to version 1.2.3 and earlier of this framework).
+ */
 open class OAuth2CodeGrantBasicAuth: OAuth2CodeGrant {
-	
-	/// The full token string to be used in the authorization header.
-	var basicToken: String?
-	
-	/**
-	Adds support to override the basic Authorization header value by specifying:
-	
-	- basic: takes precedence over client_id and client_secret for the token request Authorization header
-	*/
-	override public init(settings: OAuth2JSON) {
-		if let basic = settings["basic"] as? String {
-			basicToken = basic
-		}
-		super.init(settings: settings)
-	}
-	
-	/**
-	Calls super's implementation to obtain a token request, then adds the custom "Basic" authorization header.
-	*/
-	override open func accessTokenRequest(with code: String, params: OAuth2StringDict? = nil) throws -> OAuth2AuthRequest {
-		let req = try super.accessTokenRequest(with: code, params: params)
-		if let basic = basicToken {
-			logger?.debug("OAuth2", msg: "Overriding “Basic” authorization header, as specified during client initialization")
-			req.set(header: "Authorization", to: "Basic \(basic)")
-		}
-		else {
-			logger?.warn("OAuth2", msg: "Using extended code grant, but “basicToken” is not actually specified. Using standard code grant.")
-		}
-		return req
-	}
-}
 
+    /// The full token string to be used in the authorization header.
+    var basicToken: String?
+
+    /**
+     Adds support to override the basic Authorization header value by specifying:
+
+     - basic: takes precedence over client_id and client_secret for the token request Authorization header
+     */
+    override public init(settings: OAuth2JSON) {
+        if let basic = settings["basic"] as? String {
+            basicToken = basic
+        }
+        super.init(settings: settings)
+    }
+
+    /**
+     Calls super's implementation to obtain a token request, then adds the custom "Basic" authorization header.
+     */
+    override open func accessTokenRequest(with code: String, params: OAuth2StringDict? = nil) throws -> OAuth2AuthRequest {
+        let req = try super.accessTokenRequest(with: code, params: params)
+        if let basic = basicToken {
+            logger?.debug("OAuth2", msg: "Overriding “Basic” authorization header, as specified during client initialization")
+            req.set(header: "Authorization", to: "Basic \(basic)")
+        } else {
+            logger?.warn("OAuth2", msg: "Using extended code grant, but “basicToken” is not actually specified. Using standard code grant.")
+        }
+        return req
+    }
+}

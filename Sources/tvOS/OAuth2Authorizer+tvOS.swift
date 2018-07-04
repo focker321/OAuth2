@@ -24,27 +24,24 @@ import Foundation
 import Base
 #endif
 
-
 public final class OAuth2Authorizer: OAuth2AuthorizerUI {
-	
-	/// The OAuth2 instance this authorizer belongs to.
-	public unowned let oauth2: OAuth2Base
-	
-	
-	init(oauth2: OAuth2) {
-		self.oauth2 = oauth2
-	}
-	
-	
-	// no webview or webbrowser available on tvOS
-	
-	public func openAuthorizeURLInBrowser(_ url: URL) throws {
-		throw OAuth2Error.generic("Not implemented")
-	}
-	
-	public func authorizeEmbedded(with config: OAuth2AuthConfig, at url: URL) throws {
-		throw OAuth2Error.generic("Not implemented")
-	}
+
+    /// The OAuth2 instance this authorizer belongs to.
+    public unowned let oauth2: OAuth2Base
+
+    init(oauth2: OAuth2) {
+        self.oauth2 = oauth2
+    }
+
+    // no webview or webbrowser available on tvOS
+
+    public func openAuthorizeURLInBrowser(_ url: URL) throws {
+        throw OAuth2Error.generic("Not implemented")
+    }
+
+    public func authorizeEmbedded(with config: OAuth2AuthConfig, at url: URL) throws {
+        throw OAuth2Error.generic("Not implemented")
+    }
 }
 
 #endif

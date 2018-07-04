@@ -21,16 +21,16 @@
 import PackageDescription
 
 let package = Package(
-	name: "OAuth2",
-	targets: [
-		Target(name: "SwiftKeychain"),
-		Target(name: "Base", dependencies: [.Target(name: "SwiftKeychain")]),
-		Target(name: "macOS", dependencies: [.Target(name: "Base")]),
-		Target(name: "Flows", dependencies: [.Target(name: "macOS")]),
-		Target(name: "DataLoader", dependencies: [.Target(name: "Flows")]),
-	],
-	dependencies: [
-		// SwiftKeychain is not yet available as a Package, so we symlink to /Sources and make it a Target
-		//.Package(url: "https://github.com/yankodimitrov/SwiftKeychain.git", majorVersion: 1),
-	]
+    name: "OAuth2",
+    targets: [
+        Target(name: "SwiftKeychain"),
+        Target(name: "Base", dependencies: [.Target(name: "SwiftKeychain")]),
+        Target(name: "macOS", dependencies: [.Target(name: "Base")]),
+        Target(name: "Flows", dependencies: [.Target(name: "macOS")]),
+        Target(name: "DataLoader", dependencies: [.Target(name: "Flows")])
+    ],
+    dependencies: [
+        // SwiftKeychain is not yet available as a Package, so we symlink to /Sources and make it a Target
+        //.Package(url: "https://github.com/yankodimitrov/SwiftKeychain.git", majorVersion: 1),
+    ]
 )

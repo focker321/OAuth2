@@ -24,26 +24,23 @@ import Base
 import Flows
 #endif
 
-
 /**
-A struct encapsulating an OAuth2 request made to obtain data.
-*/
+ A struct encapsulating an OAuth2 request made to obtain data.
+ */
 public struct OAuth2DataRequest {
-	
-	/// The URLRequest to be executed.
-	public let request: URLRequest
-	
-	/// The callback executed when the request is done.
-	public let callback: (OAuth2Response) -> Void
-	
-	/// Any context to associate with the request.
-	public var context: Any? = nil
-	
-	
-	/** The one initializer. */
-	public init(request: URLRequest, callback: @escaping (OAuth2Response) -> Void) {
-		self.request = request
-		self.callback = callback
-	}
-}
 
+    /// The URLRequest to be executed.
+    public let request: URLRequest
+
+    /// The callback executed when the request is done.
+    public let callback: (OAuth2Response) -> Void
+
+    /// Any context to associate with the request.
+    public var context: Any?
+
+    /** The one initializer. */
+    public init(request: URLRequest, callback: @escaping (OAuth2Response) -> Void) {
+        self.request = request
+        self.callback = callback
+    }
+}

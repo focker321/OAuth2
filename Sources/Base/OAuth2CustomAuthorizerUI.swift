@@ -18,26 +18,24 @@
 //  limitations under the License.
 //
 
-
 /**
-Platform-dependent login presenters that present custom login views must adopt this protocol.
-*/
+ Platform-dependent login presenters that present custom login views must adopt this protocol.
+ */
 public protocol OAuth2CustomAuthorizerUI {
-	
-	/**
-	This function is responsible of the login controller presentation.
-	
-	- parameter loginController: The controller to present; the type is platform dependent
-	- parameter fromContext:     The presenting context, typically another controller of platform-dependent type
-	- parameter animated:        Whether the presentation should be animated
-	*/
-	func present(loginController: AnyObject, fromContext context: AnyObject?, animated: Bool) throws
-	
-	/**
-	This function must dismiss the login controller.
-	
-	- parameter animated: Whether the dismissal should be animated
-	*/
-	func dismissLoginController(animated: Bool)
-}
 
+    /**
+     This function is responsible of the login controller presentation.
+
+     - parameter loginController: The controller to present; the type is platform dependent
+     - parameter fromContext:     The presenting context, typically another controller of platform-dependent type
+     - parameter animated:        Whether the presentation should be animated
+     */
+    func present(loginController: AnyObject, fromContext context: AnyObject?, animated: Bool) throws
+
+    /**
+     This function must dismiss the login controller.
+
+     - parameter animated: Whether the dismissal should be animated
+     */
+    func dismissLoginController(animated: Bool)
+}
