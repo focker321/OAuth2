@@ -359,6 +359,7 @@ open class OAuth2: OAuth2Base {
 
             perform(request: post) { response in
                 do {
+                    try self.checkStatus(code: response.response.statusCode)
                     let data = try response.responseData()
                     let json = try self.parseRefreshTokenResponseData(data)
                     if response.response.statusCode >= 400 {
@@ -374,6 +375,14 @@ open class OAuth2: OAuth2Base {
             }
         } catch let error {
             callback(nil, error.asOAuth2Error)
+        }
+    }
+    
+    private func checkStatus(code: Int) throws {
+        if code == 400 {
+            throw OAuth2Error.badRequest
+        }else if code == 500 {
+            throw OAuth2Error.serverError
         }
     }
 

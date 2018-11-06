@@ -154,6 +154,9 @@ public enum OAuth2Error: Error, CustomStringConvertible, Equatable {
 
     /// Other response error, as defined in its String.
     case responseError(String)
+    
+    /// A 400 was thrown.
+    case badRequest
 
     /**
      Instantiate the error corresponding to the OAuth2 response code, if it is known.
