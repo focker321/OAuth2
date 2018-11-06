@@ -276,6 +276,8 @@ public enum OAuth2Error: Error, CustomStringConvertible, Equatable {
             return message ?? "The authorization grant or refresh token is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client."
         case .responseError(let message):
             return message
+        case .badRequest:
+            return "Bad request"
         }
     }
 
