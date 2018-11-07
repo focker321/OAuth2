@@ -300,6 +300,7 @@ public enum OAuth2Error: Error, CustomStringConvertible, Equatable {
         case (.invalidRedirectURL(let lhu), .invalidRedirectURL(let rhu)):       return lhu == rhu
         case (.noAccessToken, .noAccessToken):                       return true
         case (.noRefreshToken, .noRefreshToken):                     return true
+        case (.badRequest, .badRequest):                             return true
 
         case (.notUsingTLS, .notUsingTLS):                           return true
         case (.unableToOpenAuthorizeURL, .unableToOpenAuthorizeURL): return true
