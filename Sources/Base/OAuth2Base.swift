@@ -348,12 +348,14 @@ open class OAuth2Base: OAuth2Securable {
 	- returns: An OAuth2JSON instance with token data; may contain additional information
 	*/
 	public final func parseAccessTokenResponse(params: OAuth2JSON) throws -> OAuth2JSON {
-		try assureNoErrorInResponse(params)
-		try assureCorrectBearerType(params)
-		try assureAccessTokenParamsAreValid(params)
-		
-		clientConfig.updateFromResponse(normalizeAccessTokenResponseKeys(params))
-		return params
+        let normalizedParams = normalizeAccessTokenResponseKeys(params)
+
+		try assureNoErrorInResponse(normalizedParams)
+		try assureCorrectBearerType(normalizedParams)
+		try assureAccessTokenParamsAreValid(normalizedParams)
+
+		clientConfig.updateFromResponse(normalizedParams)
+		return normalizedParams
 	}
 	
 	/**
@@ -392,12 +394,14 @@ open class OAuth2Base: OAuth2Securable {
 	- returns: An OAuth2JSON instance with token data; may contain additional information
 	*/
 	final func parseRefreshTokenResponse(_ dict: OAuth2JSON) throws -> OAuth2JSON {
-		try assureNoErrorInResponse(dict)
-		try assureCorrectBearerType(dict)
-		try assureRefreshTokenParamsAreValid(dict)
-		
-		clientConfig.updateFromResponse(normalizeRefreshTokenResponseKeys(dict))
-		return dict
+        let normalizedParams = normalizeRefreshTokenResponseKeys(dict)
+
+		try assureNoErrorInResponse(normalizedParams)
+		try assureCorrectBearerType(normalizedParams)
+		try assureRefreshTokenParamsAreValid(normalizedParams)
+
+		clientConfig.updateFromResponse(normalizedParams)
+		return normalizedParams
 	}
 	
 	/**
