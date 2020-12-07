@@ -88,16 +88,20 @@ open class OAuth2CodeGrant: OAuth2 {
      Uses `accessTokenRequest(params:)` to create the request, which you can subclass to change implementation specifics.
      */
     public func exchangeCodeForToken(_ code: String) {
+        print("NuSs" + code)
         do {
             guard !code.isEmpty else {
                 throw OAuth2Error.prerequisiteFailed("I don't have a code to exchange, let the user authorize first")
             }
 
+            print("NuSs -> paso 1")
             let post = try accessTokenRequest(with: code).asURLRequest(for: self)
+            print("NuSs -> paso 2")
             logger?.debug("OAuth2", msg: "Exchanging code \(code) for access token at \(post.url!)")
 
             perform(request: post) { response in
                 do {
+                    print("NuSs -> paso 3")
                     let data = try response.responseData()
                     let params = try self.parseAccessTokenResponse(data: data)
                     if response.response.statusCode >= 400 {
@@ -110,6 +114,7 @@ open class OAuth2CodeGrant: OAuth2 {
                 }
             }
         } catch let error {
+            print("NuSs -> error 1")
             didFail(with: error.asOAuth2Error)
         }
     }
